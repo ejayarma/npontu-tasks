@@ -6,7 +6,7 @@
                 @if (Route::has('login'))
                     <div class="px-6 py-4 sm:block">
                         @auth
-                            <a href="{{ url('/dashboard') }}"
+                            <a href="{{ route('activity.index') }}"
                                 class="text-base text-gray-700 dark:text-gray-500 hover:underline">Dashboard</a>
                         @else
                             <a href="{{ route('login') }}"

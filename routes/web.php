@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('index');
+Route::get('/', [PageController::class, 'index'])->name('index');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
+])->prefix('dashboard')->group(function () {
+    Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::resource('activity', ActivityController::class);
 });
