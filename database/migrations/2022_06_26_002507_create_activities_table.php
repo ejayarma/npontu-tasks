@@ -17,7 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->foreignId('assigned_to');
+            $table->foreignId('user_id')->index();
             $table->enum('status', ['pending', 'done'])->default('pending');
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->timestamps();

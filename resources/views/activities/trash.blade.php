@@ -41,34 +41,39 @@
                                             @endif
                                         </span>
                                     </p>
-
                                     <p class="float-right my-3">
-                                        <span class="border-2 hover:border-blue-400 p-2 rounded ml-2"><a
-                                                href="{{ route('activity.show', $activity) }}">Details</a></span>
-                                        <span class="border-2 hover:border-blue-400 p-2 rounded ml-2"><a
-                                                href="{{ route('activity.edit', $activity) }}">Edit</a></span>
                                         <button
                                             onclick="{
-                                                if(confirm('Are you sure you want to delete this activity?')){
-                                                    let form = document.getElementById('deleteForm');
-                                                    form.action = `{{ route('activity.destroy', $activity) }}`;
+                                                let form = document.getElementById('restoreForm');
+                                                form.action = `{{ route('activity.restore', $activity->id) }}`;
+                                                form.submit();
+                                            }"
+                                            class="border-2 bg-green-400 p-2 rounded ml-2">
+                                            Restore
+                                        </button>
+                                        <button
+                                            onclick="{
+                                                if(confirm('Are you sure you want permanently to delete this activity?')){
+                                                    let form = document.getElementById('permanentDeleteForm');
+                                                    form.action = `{{ route('activity.destroy_forever', $activity->id) }}`;
                                                     form.submit();
                                                 }
                                             }"
                                             class="border-2 hover:border-red-400 p-2 rounded ml-2">
-                                            Delete
+                                            Delete Forever
                                         </button>
-
                                     </p>
                                 </div>
                             </div>
                         </div>
                     @endforeach
-                    <form id="deleteForm" action="" method="POST">
+                    <form id="restoreForm" action="" method="POST">
+                        @csrf
+                    </form>
+                    <form id="permanentDeleteForm" action="" method="POST">
                         @csrf
                         @method('DELETE')
                     </form>
-                    <form action="sor" method="post"></form>
                 </div>
             </div>
         </div>

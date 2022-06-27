@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ActivityRestoreController;
+use App\Http\Controllers\ActivityTrashController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -24,5 +26,10 @@ Route::middleware([
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    // Routes for Activity
     Route::resource('activity', ActivityController::class);
+    Route::get('/activity-trash', [ActivityController::class, 'trash'])->name('activity.trash');
+    Route::delete('/activity-destroy-forever/{activity_id}', [ActivityController::class, 'destroyForever'])->name('activity.destroy_forever');
+    Route::post('/activity-restore/{activity_id}', [ActivityController::class, 'restore'])->name('activity.restore');
 });

@@ -26,7 +26,7 @@ class StoreActivityRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required',
-            'assigned_to' => 'required',
+            'user_id' => 'required',
             'status' => 'sometimes|required',
             'priority' => 'sometimes|required|max:6',
         ];

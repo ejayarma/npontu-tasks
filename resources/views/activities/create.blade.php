@@ -32,10 +32,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-jet-label for="assigned_to" value="{{ __('Assign To') }}" />
-                            <select id="assigned_to"
+                            <x-jet-label for="user_id" value="{{ __('Assign To') }}" />
+                            <select id="user_id"
                                 class="block mt-1 w-96 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                                type="" name="assigned_to" required>
+                                type="" name="user_id" required>
                                 <option value="0">Asign task</option>
                                 @foreach ($teamMembers as $key => $tm)
                                     <option value="{{ $tm }}">{{ $key }}</option>

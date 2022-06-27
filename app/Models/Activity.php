@@ -14,8 +14,8 @@ class Activity extends Model implements AuditableContract
     use Auditable;
     use SoftDeletes;
 
-    public function assigned_to()
+    public function user()
     {
-        return $this->belongsTo(User::class, null, 'assigned_to');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

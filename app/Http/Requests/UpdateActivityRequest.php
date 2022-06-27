@@ -13,7 +13,7 @@ class UpdateActivityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateActivityRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'user_id' => 'required',
+            'status' => 'sometimes|required',
+            'priority' => 'sometimes|required|max:6',
         ];
     }
 }

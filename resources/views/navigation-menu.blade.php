@@ -13,12 +13,17 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('activity.index') }}" :active="request()->routeIs('activity.index')">
-                        {{ __('All Activities') }}
+                        {{ __('Activities') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('activity.create') }}" :active="request()->routeIs('activity.create')">
                         {{ __('New Activity') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('activity.trash') }}" :active="request()->routeIs('activity.trash')">
+                        {{ __('Deleted Activities') }}
                     </x-jet-nav-link>
                 </div>
             </div>
