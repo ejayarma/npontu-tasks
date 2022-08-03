@@ -29,6 +29,7 @@ Route::middleware([
 
     // Routes for Activity
     Route::resource('activity', ActivityController::class);
+    Route::get('/sf-index', [ActivityController::class, 'sortedAndFilteredIndex'])->name('activity.sf_index');
     Route::get('/activity-trash', [ActivityController::class, 'trash'])->name('activity.trash');
     Route::delete('/activity-destroy-forever/{activity_id}', [ActivityController::class, 'destroyForever'])->name('activity.destroy_forever');
     Route::post('/activity-restore/{activity_id}', [ActivityController::class, 'restore'])->name('activity.restore');

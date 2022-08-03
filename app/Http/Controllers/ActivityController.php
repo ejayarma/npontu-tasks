@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateActivityRequest;
 use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class ActivityController extends Controller
 {
@@ -31,6 +32,50 @@ class ActivityController extends Controller
                 [
                     'activities' => $activities,
                     'teamMembers' => $teamMembers
+                ]
+            );
+    }
+
+    /**
+     * Display a sorted and filtered
+     * listing of the resource.
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sorTedAndFilteredIndex(Request  $request)
+    {
+        // dd($request->order_by);
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $sortBy = $request->sort_by;
+        $orderBy = $request->order_by;
+        $sortValue = Schema::hasColumn('activities', $sortBy) ? $sortBy : 'created_at';
+        $orderValue = in_array($orderBy, ['desc', 'asc'], true) ? $orderBy : 'desc';
+
+        $activities = Activity::withoutTrashed()
+            ->whereBetween('created_at', [
+                $startDate ?  $startDate  : date('Y-m-d'),
+                $endDate ?  $endDate  : date('Y-m-d')
+            ])->orderBy($sortValue, $orderValue)->get();
+        $user = auth()->user();
+        $teams = $user->ownedTeams;
+
+        $teamMembers = [];
+        foreach ($teams as $team) {
+            foreach ($team->allUsers() as $user) {
+                $teamMembers[$user->name] = $user->id;
+            }
+        }
+        return view('activities.index')
+            ->with(
+                [
+                    'activities' => $activities,
+                    'teamMembers' => $teamMembers,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                    'sortValue' => $sortValue,
+                    'orderValue' => $orderValue
                 ]
             );
     }
@@ -117,12 +162,16 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        $audits = $activity->audits()->get();
+        $audits = $activity->audits()->orderBy('created_at', 'desc')->get();
         $auditsModified = [];
         foreach ($audits as $audit) {
             // dd($audit->getModified());
-            $auditsModified[] = array($audit->getModified());
+            // $auditKey = array_pop(array_keys($audit[0]));
+            if ($audit) {
+                array_push($auditsModified, $audit->getModified());
+            }
         }
+        array_pop($auditsModified);
 
         // dd($auditsModified);
 

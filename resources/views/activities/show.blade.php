@@ -46,16 +46,36 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-3 m-3">
                     <h2 class="text-gray-900">History</h2>
                 </div>
                 <div class="p-3 m-3">
                     @foreach ($audits as $audit)
-                        <p>{{ $audit->title->new }}
-                        </p>
+                        @if (isset($audit['title']['old'], $audit['title']['new']))
+                            <p>Old Title - {{ $audit['title']['old'] }}</p>
+                            <p>New Title - {{ $audit['title']['new'] }}</p>
+                        @endif
+
+                        @if (isset($audit['descritption']['old'], $audit['descritption']['new']))
+                            <p>Old Descritption - {{ $audit['descritption']['old'] }}</p>
+                            <p>New Descritption - {{ $audit['descritption']['new'] }}</p>
+                        @endif
+
+                        @if (isset($audit['user_id']['old'], $audit['user']['new']))
+                            <p>Old User - {{ $audit['user_id']['old'] }}</p>
+                            <p>New User - {{ $audit['user_id']['new'] }}</p>
+                        @endif
+
+                        @if (isset($audit['priority']['old'], $audit['priority']['new']))
+                            <p>Old Priority - {{ $audit['priority']['old'] }}</p>
+                            <p>New Priority - {{ $audit['priority']['new'] }}</p>
+                        @endif
+
+                        @if (isset($audit['status']['old'], $audit['status']['new']))
+                            <p>Old Status - {{ $audit['status']['old'] }}</p>
+                            <p>New Status - {{ $audit['status']['new'] }}</p>
+                        @endif
                     @endforeach
                 </div>
             </div>
