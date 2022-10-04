@@ -1,6 +1,6 @@
 # Npontu tasks
-This is is a simple productivity tool for managing your
-tasks and for assigning tasks in a team-based environments.
+This is a simple productivity tool for managing your
+tasks and for assigning tasks in team-based environments.
 
 ## Testing
 Tests can be found at `/tests`
